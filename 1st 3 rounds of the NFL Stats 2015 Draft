@@ -1,0 +1,83 @@
+CREATE TABLE picks (
+  id INTEGER PRIMARY KEY,
+  pick_number INTEGER,
+  name TEXT,
+  college TEXT,
+  picked_by TEXT,
+  position TEXT);
+
+INSERT INTO picks (pick_number, name, college, picked_by, position)
+VALUES(95,"Matt Jones","Florida","Washington","RB");
+INSERT INTO picks (pick_number, name, college, picked_by, position)
+VALUES(96,"Javorius Allen","USC","Baltimore","RB");
+INSERT INTO picks (pick_number, name, college, picked_by, position)
+VALUES(97,"Cameron Artis-Payne","Auburn","Carolina","RB");
+INSERT INTO picks (pick_number, name, college, picked_by, position)
+VALUES(98,"Tyler Varga","Yale","Indianapolis","RB");
+INSERT INTO picks (pick_number, name, college, picked_by, position)
+VALUES(99,"Geneo Grissom","Oklahoma","New England","DE");
+INSERT INTO picks (pick_number, name, college, picked_by, position)
+VALUES(100,"Ibraheim Campbell","Northwestern","Cleveland","S");
+INSERT INTO picks (pick_number, name, college, picked_by, position)
+VALUES(101,"Trey Flowers","Arkansas","New England","DE");
+INSERT INTO picks (pick_number, name, college, picked_by, position)
+VALUES(102,"Za'Darius Smith","Kentucky","Baltimore","OLB");
+INSERT INTO picks (pick_number, name, college, picked_by, position)
+VALUES(103,"David Cobb","Minnesota","Tennessee","RB");
+INSERT INTO picks (pick_number, name, college, picked_by, position)
+VALUES(104,"Ladarius Gunter","Miami (FL)","Green Bay","CB");
+INSERT INTO picks (pick_number, name, college, picked_by, position)
+VALUES(105,"Blake Bell","Oklahoma","San Francisco","TE");
+INSERT INTO picks (pick_number, name, college, picked_by, position)
+VALUES(106,"Jay Ajayi","Boise State","Miami","RB");
+INSERT INTO picks (pick_number, name, college, picked_by, position)
+VALUES(107,"Bobby McCain","Memphis","Miami","CB");
+INSERT INTO picks (pick_number, name, college, picked_by, position)
+VALUES(108,"T.J. Clemmings","Pittsburgh","Minnesota","OT");
+INSERT INTO picks (pick_number, name, college, picked_by, position)
+VALUES(109,"Kwon Alexander","LSU","Tampa Bay","OLB");
+INSERT INTO picks (pick_number, name, college, picked_by, position)
+VALUES(110,"Xavier Cooper","Washington State","Cleveland","DT");
+INSERT INTO picks (pick_number, name, college, picked_by, position)
+VALUES(111,"Grady Jarrett","Clemson","Atlanta","DT");
+INSERT INTO picks (pick_number, name, college, picked_by, position)
+VALUES(112,"Jeremy Langford","Michigan State","Chicago","RB");
+INSERT INTO picks (pick_number, name, college, picked_by, position)
+VALUES(113,"DeAndre Smelter","Georgia Tech","San Francisco","WR");
+INSERT INTO picks (pick_number, name, college, picked_by, position)
+VALUES(114,"Zack Hodges","Harvard","Indianapolis","OLB");
+INSERT INTO picks (pick_number, name, college, picked_by, position)
+VALUES(115,"Taiwan Jones","Michigan State","NY Jets","RB");
+INSERT INTO picks (pick_number, name, college, picked_by, position)
+VALUES(116,"Hakeem Valles","Monmouth (NJ)","Arizona","TE");
+
+--what are average, max, and min values in the data?
+SELECT AVG(pick_number) AS average_pick_number,
+       MAX(pick_number) AS max_pick_number,
+       MIN(pick_number) AS min_pick_number
+FROM picks;
+
+--what about those numbers per category in the data?
+SELECT position, COUNT(*) AS count
+FROM picks
+GROUP BY position
+HAVING count > 5;
+
+--what ways are there to group the data values that don’t exist yet? 
+SELECT
+  CASE
+    WHEN position = 'QB' THEN 'Quarterback'
+    WHEN position = 'RB' THEN 'Running Back'
+    WHEN position = 'WR' THEN 'Wide Receiver'
+    ELSE 'Other Positions'
+  END AS grouped_position,
+  COUNT(*) AS count
+FROM
+  picks
+GROUP BY
+  grouped_position;
+
+-- how can you filter the data using the OR operator?
+SELECT *
+FROM picks
+WHERE position = 'QB' OR position = 'RB';
