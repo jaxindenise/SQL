@@ -1,0 +1,24 @@
+--Create your own clothing store
+
+/**Clothing:
+Jeans (5)
+Tank Tops (7)
+Socks (4)
+Bras (9)
+**/ 
+
+CREATE TABLE clothing (id INTEGER PRIMARY KEY, name TEXT, quantity INTEGER, price INTEGER);
+
+INSERT INTO clothing VALUES (1, "Jeans", 5, 40);
+INSERT INTO clothing VALUES (2, "Tank Tops", 7, 5);
+INSERT INTO clothing VALUES (3, "Socks", 4, 3);
+INSERT INTO clothing VALUES (4, "Bras", 9, 20);
+
+--display the database ordered by price.
+SELECT * FROM clothing ORDER BY price;
+
+--what items have a price greater than $10?
+SELECT * FROM clothing WHERE price > 10 ORDER BY price;
+
+--what is the sum of all items?
+SELECT SUM(quantity) FROM clothing;
