@@ -1,0 +1,72 @@
+Make your own table with some small set of “famous singers”, then make more tables about things they do and join those to create nice human readable lists
+
+--what are the singers' names?
+CREATE TABLE Singers (
+  SingerID INTEGER PRIMARY KEY,
+  SingerName TEXT
+);
+
+INSERT INTO Singers (SingerID, SingerName)
+VALUES
+  (1, 'Taylor Swift'),
+  (2, 'Ed Sheeran'),
+  (3, 'Beyoncé'),
+  (4, 'Adele'),
+  (5, 'Shakira');
+SELECT * FROM Singers;
+
+--what songs have they written?
+CREATE TABLE SongsWritten (
+  SongID INTEGER PRIMARY KEY,
+  SingerID INTEGER,
+  SongName TEXT,
+  FOREIGN KEY (SingerID) REFERENCES Singers(SingerID)
+);
+INSERT INTO SongsWritten (SongID, SingerID, SongName)
+VALUES
+  (1, 1, 'Love Story'),
+  (2, 1, 'You Belong with Me'),
+  (3, 1, 'Blank Space'),
+  (4, 2, 'Shape of You'),
+  (5, 2, 'Thinking Out Loud'),
+  (6, 2, 'Photograph'),
+  (7, 3, 'Halo'),
+  (8, 3, 'Single Ladies (Put a Ring on It)'),
+  (9, 3, 'Crazy in Love'),
+  (10, 4, 'Hello'),
+  (11, 4, 'Rolling in the Deep'),
+  (12, 4, 'Someone Like You'),
+  (13, 5, 'Hips Don''t Lie'),
+  (14, 5, 'Whenever, Wherever'),
+  (15, 5, 'Waka Waka (This Time for Africa)');
+SELECT * FROM SongsWritten;
+
+-- join both the singers' names and song names on the same table
+CREATE TABLE SongsAndSingers (
+  SongID INTEGER PRIMARY KEY,
+  SongName TEXT,
+  SingerName TEXT,
+  FOREIGN KEY (SongID) REFERENCES SongsWritten(SongID)
+);
+INSERT INTO SongsAndSingers (SongID, SongName, SingerName)
+SELECT sw.SongID, sw.SongName, s.SingerName
+FROM SongsWritten sw
+JOIN Singers s ON sw.SingerID = s.SingerID;
+SELECT * FROM SongsAndSingers;
+
+-- where are they from?
+CREATE TABLE OriginDetails (
+  OriginID INTEGER PRIMARY KEY,
+  OriginName TEXT,
+  SingerID INTEGER,
+  FOREIGN KEY (SingerID) REFERENCES Singers(SingerID)
+);
+INSERT INTO OriginDetails (OriginID, OriginName, SingerID)
+VALUES
+  (1, 'United States', 1),
+  (2, 'United Kingdom', 2),
+  (3, 'United States', 3),
+  (4, 'United Kingdom', 4),
+  (5, 'Colombia', 5);
+SELECT * FROM OriginDetails;
+SELECT * FROM Singers;
